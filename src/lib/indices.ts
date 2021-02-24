@@ -1,10 +1,10 @@
-import { Client, IndicesFlushParams } from 'elasticsearch';
+import { Client, RequestParams } from '@elastic/elasticsearch';
 import { Indexed, IndexedClass } from '../types';
 import { ICoreOptions } from './core';
 import { getIndexMetadata, getPropertiesMetadata } from './metadata-handler';
 import { getPureMapping } from './tools';
 
-export type IndexedIndicesFlushParams = Indexed<IndicesFlushParams>;
+export type IndexedIndicesFlushParams = RequestParams.IndicesFlush;
 
 export class Indices {
   constructor(private readonly client: Client, private readonly options: ICoreOptions) {}
@@ -28,7 +28,7 @@ export class Indices {
   /**
    * Returns true if index exists
    */
-  async exists<T>(cls: IndexedClass<T>): Promise<boolean> {
+  async exists<T>(cls: IndexedClass<T>): Promise<any> {
     const metadata = getIndexMetadata(this.options, cls);
     return await this.client.indices.exists({ index: metadata.index });
   }
@@ -36,9 +36,9 @@ export class Indices {
   /**
    * Explicitly flush one index
    */
-  flush<T>(cls: IndexedClass<T>, params?: IndexedIndicesFlushParams): Promise<any> {
+  flush<T>(cls: IndexedClass<T>, params?: RequestParams.IndicesFlush): Promise<any> {
     const metadata = getIndexMetadata(this.options, cls);
-    const flushParams: IndicesFlushParams = { index: metadata.index, ...params };
+    const flushParams: RequestParams.IndicesFlush = { index: metadata.index, ...params };
     return this.client.indices.flush(flushParams);
   }
 

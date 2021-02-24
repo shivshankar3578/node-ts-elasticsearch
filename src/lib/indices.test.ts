@@ -80,10 +80,10 @@ describe('flush', () => {
   });
 
   it('flushes using custom params', async () => {
-    const params: IndexedIndicesFlushParams = { body: { query: { match_all: {} } } };
+    const params: IndexedIndicesFlushParams = { index: 'a_index' };
     await indices.flush(Twitter, params);
     expect(getIndexMetadata).toHaveBeenCalledWith(options, Twitter);
-    expect(client.indices.flush).toHaveBeenCalledWith({ index: 'a_index', body: { query: { match_all: {} } } });
+    expect(client.indices.flush).toHaveBeenCalledWith({ index: 'a_index' });
   });
 
   it('returns the client result', async () => {

@@ -337,7 +337,10 @@ describe('buildBulkQuery', () => {
     });
 
     it('build index query', () => {
-      const query = buildBulkQuery(options, 'index', User, [{ id: '123', name: 'Bob' }, { id: '124', name: 'Tom' }]);
+      const query = buildBulkQuery(options, 'index', User, [
+        { id: '123', name: 'Bob' },
+        { id: '124', name: 'Tom' },
+      ]);
       expect(query).toEqual({
         body: [
           { index: { _index: 'a_index', _type: 'a_type', _id: '123' } },
