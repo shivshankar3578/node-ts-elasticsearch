@@ -1,4 +1,4 @@
-import * as es from 'elasticsearch';
+import * as es from '@elastic/elasticsearch';
 
 import { Index } from './decorators/index.decorator';
 import { Field, Primary } from './index';
