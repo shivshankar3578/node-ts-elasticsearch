@@ -23,14 +23,14 @@ beforeEach(() => jest.clearAllMocks());
 describe('constructor', () => {
   describe('without core options', () => {
     it('use instanciated client', () => {
-      const client = new es.Client({ node: 'localhost:9200' });
+      const client = new es.Client({ node: 'localhost' });
       const service = new Elasticsearch(client);
       expect((service as any).client).toBe(client);
       expect((es as any).jestConstructor).toHaveBeenCalledTimes(1);
     });
 
     it('instanciate a Client with passed parameters', () => {
-      const params = { node: 'localhost:9200' };
+      const params = { node: 'localhost' };
       const service = new Elasticsearch(params);
       expect((service as any).client).toBeInstanceOf(es.Client);
       expect((es as any).jestConstructor).toHaveBeenCalledTimes(1);
@@ -46,7 +46,7 @@ describe('constructor', () => {
 
   describe('with core options', () => {
     it('use instanciated client', () => {
-      const client = new es.Client({ node: 'localhost:9200' });
+      const client = new es.Client({ node: 'localhost' });
       const service = new Elasticsearch({ client, indexPrefix: 'es1_' });
       expect((service as any).client).toBe(client);
       expect((es as any).jestConstructor).toHaveBeenCalledTimes(1);
@@ -54,10 +54,10 @@ describe('constructor', () => {
     });
 
     it('instanciate a Client with passed parameters', () => {
-      const service = new Elasticsearch({ node: 'localhost:9200', indexPrefix: 'es1_' });
+      const service = new Elasticsearch({ node: 'localhost', indexPrefix: 'es1_' });
       expect((service as any).client).toBeInstanceOf(es.Client);
       expect((es as any).jestConstructor).toHaveBeenCalledTimes(1);
-      expect((es as any).jestConstructor).toHaveBeenCalledWith({ node: 'localhost:9200' });
+      expect((es as any).jestConstructor).toHaveBeenCalledWith({ node: 'localhost' });
       expect((service as any).options).toEqual({ indexPrefix: 'es1_' });
     });
 
@@ -87,6 +87,6 @@ describe('splitOptions', () => {
   });
 
   it('extract client config options', () => {
-    expect(splitOptions({ node: 'localhost:9200' })).toEqual({ clientOptions: { node: 'localhost:9200' }, coreOptions: {} });
+    expect(splitOptions({ node: 'localhost' })).toEqual({ clientOptions: { node: 'localhost' }, coreOptions: {} });
   });
 });
