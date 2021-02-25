@@ -5,6 +5,10 @@
     "description": "Elasticsearch decorated by TypeScript",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "files": [
+        "src",
+        "tsconfig.json"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gojob-1337/node-ts-elasticsearch"
@@ -22,7 +26,8 @@
         "lint": "tslint -c ./tslint.json -p ./tsconfig.json -t verbose",
         "start": "echo 'Not runable' && exit 1",
         "test": "jest  --config=jest.json",
-        "coverage": "yarn test --coverage"
+        "coverage": "yarn test --coverage",
+        "postinstall": "npm run build"
     },
     "devDependencies": {
         "@gojob/tslint-config": "^1.0.0",
